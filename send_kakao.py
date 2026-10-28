@@ -85,8 +85,8 @@ def main():
     template = {
         "object_type": "feed",
         "content": {
-            "title": summary.get("headline", "약사가 읽는 마약류 뉴스"),
-            "description": f"{today.month}월 {today.day}일 마약류 뉴스 {count}건, 약사 코멘트와 원문 링크",
+            "title": summary.get("headline", "마약류 뉴스 브리핑"),
+            "description": f"{today.month}월 {today.day}일 마약류 주요 뉴스 {count}건과 원문 링크",
             "image_url": image_url,
             "image_width": 1080,
             "image_height": 1350,

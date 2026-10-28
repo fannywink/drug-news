@@ -3,7 +3,7 @@
 
 - 네이버 클라우드 NAVER API HUB의 뉴스 검색 API로 최근 24시간 기사를 수집함
 - 지정한 10개 매체 기사만 남기고 중복을 제거함
-- Claude API로 관련성 판별 → 사건별 묶기 → 분야별 요약 → 약사 시사점 코멘트를 작성함
+- Claude API로 관련성 판별 → 사건별 묶기 → 우선순위(청소년 > 예방·치료재활)로 최대 6건 선정 → 요약함
 - 결과는 docs/날짜/ 폴더에 summary.json, briefing.txt, 카드뉴스 PNG, 링크 모음, 웹페이지(index.html)로 저장함
 
 실행 전 환경변수 설정 필요:
@@ -48,8 +48,10 @@ PRESS = {
 # 검색 키워드 (필요하면 추가·삭제)
 KEYWORDS = [
     "마약", "마약류", "마약사범", "필로폰", "대마", "펜타닐", "케타민",
-    "프로포폴", "졸피뎀", "향정신성", "의료용 마약류", "마약류통합관리시스템",
-    "메틸페니데이트", "약물 오남용",
+    "프로포폴", "졸피뎀", "향정신성", "의료용 마약류", "메틸페니데이트", "약물 오남용",
+    # 청소년·예방·치료재활 기사를 놓치지 않기 위한 키워드
+    "청소년 마약", "청소년 약물", "오버도즈", "과다복용", "마약 예방교육",
+    "마약 중독 치료", "마약 재활", "치료보호", "중독 회복",
 ]
 
 # 네이버 검색 API는 2026년 하반기부터 네이버 클라우드 "NAVER API HUB"에서 발급·제공됨
@@ -139,28 +141,31 @@ def collect() -> list:
 # ─────────────────────────────────────────
 # 2. 필터링·요약 (Claude)
 # ─────────────────────────────────────────
-SYSTEM_PROMPT = """너는 경기도약사회 마약퇴치사업본부에서 회원 약사들에게 보내는 일일 마약류 뉴스 브리핑을 작성한다.
-독자는 지역약국 약사이며, 뉴스를 약사의 업무와 역할 관점에서 해석해 주는 것이 목적이다.
+MAX_ITEMS = 6  # 카드뉴스에 실을 최대 기사(사안) 수
+
+SYSTEM_PROMPT = """너는 경기도약사회 마약퇴치사업본부의 일일 마약류 뉴스 브리핑을 작성한다.
+독자는 마약류 중독 예방교육과 치료·재활 지원 활동을 하는 사람들이다.
+이들의 활동에 도움이 되는 뉴스를 골라 정확하고 간결하게 전달하는 것이 목적이다.
 반드시 JSON만 출력하고, 설명이나 코드블록 표시(```)는 붙이지 않는다."""
 
 USER_PROMPT = """아래는 최근 24시간 동안 수집한 기사 목록(제목·요약문)이다.
 
 [작성 규칙]
-1. 실제 마약류와 관련된 기사만 포함한다. 불법 마약, 의료용 마약류·향정신성의약품 오남용, 관련 정책·단속·수사·예방·치료·재활이 해당한다.
+1. 실제 마약류와 관련된 기사만 대상으로 한다. 불법 마약, 의료용 마약류·향정신성의약품 오남용, 관련 정책·단속·예방·치료·재활이 해당한다.
    '마약김밥', '마약 같은 매력'처럼 비유적으로 쓰인 기사는 제외한다.
 2. 같은 사건·사안을 다룬 여러 기사는 하나로 묶고, 출처는 모두 sources에 넣는다.
-3. 분류는 "단속·사건", "정책·제도", "의료용 마약류", "예방·치료·재활", "기타" 중에서 고른다. 해당 기사가 없는 분류는 생략한다.
-4. summary는 제공된 제목·요약문에 있는 사실만 사용하고 추측하지 않는다. 2문장, 120자 이내로, 기사 문장을 그대로 옮기지 말고 새로 구성한다.
-5. comment는 이 뉴스가 약사에게 주는 의미를 2문장, 100자 이내로 쓴다. 기사 내용을 되풀이하지 말고 다음 관점 중 맞는 것을 골라 실무적으로 쓴다.
-   - 처방 확인·조제·복약상담 시 주의할 점
-   - 마약류 보관·재고·보고 등 약국 관리 업무
-   - 환자·보호자에게 안내할 내용
-   - 예방교육·지역사회에서 약사가 할 수 있는 역할
-   주의: 기사에 없는 법 조항·처벌 수위·수치·제도명을 지어내지 않는다. 확실하지 않은 제도는 일반적인 표현으로 쓴다.
-   특정인·직군을 비난하거나 공포를 조장하지 않고, 차분하고 제안하는 어조(~합니다/~해 주세요)로 쓴다.
-6. 각 분류 안에서 중요도 순으로 정렬한다. 약사·약국과 직접 관련된 사안은 pharmacy를 true로 한다.
+3. 묶은 사안 중 최대 {max_items}건만 고른다. 고르는 우선순위는 다음과 같다.
+   1순위: 청소년과 관련된 사안 (청소년 마약류 사용·중독, 약물 과다복용(OD, 오버도즈), 청소년 대상 유통·예방 등)
+   2순위: 마약류 중독 예방, 예방교육, 치료·재활, 회복 지원과 연관이 깊은 사안
+   3순위: 남은 자리가 있을 때만 정책·제도, 의료용 마약류 오남용, 대규모 단속·사건 중 중요한 것
+   유명인 사건처럼 화제성만 큰 기사는 예방·재활 관점의 의미가 없으면 뒤로 미룬다.
+4. 분류는 "청소년", "예방·교육", "치료·재활", "정책·제도", "단속·사건", "기타" 중에서 고르고, 이 순서대로 나열한다. 해당 기사가 없는 분류는 생략한다.
+5. summary는 제공된 제목·요약문에 있는 사실만 사용하고 추측하지 않는다. 2문장, 120자 이내로, 기사 문장을 그대로 옮기지 말고 새로 구성한다.
+6. 청소년과 관련된 사안은 분류와 관계없이 youth를 true로 한다.
 7. headline에는 오늘 가장 중요한 이슈를 한 문장(30자 이내)으로 쓴다.
-8. daily_comment에는 오늘 뉴스 전체를 관통하는 약사에게 주는 메시지를 2문장, 120자 이내로 쓴다.
+8. daily_comment에는 오늘 뉴스를 바탕으로 예방교육·치료재활 현장에 주는 메시지를 2문장, 120자 이내로 쓴다.
+   기사에 없는 법 조항·수치·제도명을 지어내지 않고, 공포를 조장하지 않는 차분한 어조로 쓴다.
+9. excluded_count에는 관련 없거나 우선순위에서 밀려 제외한 기사 수를 쓴다.
 
 [출력 형식]
 {{
@@ -172,14 +177,13 @@ USER_PROMPT = """아래는 최근 24시간 동안 수집한 기사 목록(제목
         {{
           "title": "사안 제목(직접 작성, 25자 이내)",
           "summary": "2문장 요약",
-          "comment": "약사에게 주는 의미 2문장",
-          "pharmacy": false,
+          "youth": false,
           "sources": [{{"press": "매체명", "url": "기사 URL"}}]
         }}
       ]
     }}
   ],
-  "daily_comment": "오늘의 약사 한마디",
+  "daily_comment": "오늘의 한마디",
   "excluded_count": 제외한_기사_수
 }}
 
@@ -204,11 +208,19 @@ def summarize(articles: list) -> dict:
         max_tokens=8000,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": USER_PROMPT.format(
-            articles=json.dumps(payload, ensure_ascii=False, indent=1))}],
+            max_items=MAX_ITEMS, articles=json.dumps(payload, ensure_ascii=False, indent=1))}],
     )
     text = "".join(b.text for b in msg.content if b.type == "text")
     text = re.sub(r"^```(?:json)?|```$", "", text.strip()).strip()
-    return json.loads(text)
+    result = json.loads(text)
+
+    # 안전장치: AI가 6건을 넘겨도 앞에서부터 6건만 남김
+    left = MAX_ITEMS
+    for cat in result.get("categories", []):
+        cat["items"] = cat["items"][:max(left, 0)]
+        left -= len(cat["items"])
+    result["categories"] = [c for c in result.get("categories", []) if c["items"]]
+    return result
 
 
 # ─────────────────────────────────────────
@@ -219,17 +231,16 @@ def to_text(summary: dict, date_str: str) -> str:
     for cat in summary.get("categories", []):
         lines.append(f"[{cat['name']}]")
         for item in cat["items"]:
-            mark = " 💊약국" if item.get("pharmacy") else ""
-            press = ", ".join(s["press"] for s in item["sources"])
+            mark = " (청소년)" if item.get("youth") else ""
             lines.append(f"· {item['title']}{mark}")
             lines.append(f"  {item['summary']}")
-            lines.append(f"  → 약사에게 주는 의미: {item.get('comment', '')}")
-            lines.append(f"  ({press})")
+            for src in item["sources"]:
+                lines.append(f"  {src['press']} {src['url']}")
         lines.append("")
     if summary.get("daily_comment"):
-        lines.append(f"■ 오늘의 약사 한마디\n{summary['daily_comment']}")
+        lines.append(f"■ 오늘의 한마디\n{summary['daily_comment']}")
         lines.append("")
-    lines.append(f"※ 관련 없는 기사 {summary.get('excluded_count', 0)}건 제외")
+    lines.append(f"※ 제외한 기사 {summary.get('excluded_count', 0)}건")
     return "\n".join(lines)
 
 
@@ -244,9 +255,9 @@ def update_archive_index():
     with open(os.path.join(OUTPUT_DIR, "index.html"), "w", encoding="utf-8") as f:
         f.write('<!doctype html><html lang="ko"><head><meta charset="utf-8">'
                 '<meta name="viewport" content="width=device-width, initial-scale=1">'
-                '<meta name="robots" content="noindex"><title>약사가 읽는 마약류 뉴스</title>'
+                '<meta name="robots" content="noindex"><title>마약류 뉴스 브리핑</title>'
                 '<style>body{font-family:sans-serif;max-width:640px;margin:40px auto;padding:0 20px;line-height:1.8}'
-                'a{color:#123C36}</style></head><body><h1>약사가 읽는 마약류 뉴스</h1>'
+                'a{color:#123C36}</style></head><body><h1>마약류 뉴스 브리핑</h1>'
                 f'<ul>{rows}</ul></body></html>')
 
 
