@@ -1,7 +1,7 @@
 """
 마약류 뉴스 수집·요약 (1단계)
 
-- 네이버 뉴스 검색 API로 최근 24시간 기사를 수집함
+- 네이버 클라우드 NAVER API HUB의 뉴스 검색 API로 최근 24시간 기사를 수집함
 - 지정한 10개 매체 기사만 남기고 중복을 제거함
 - Claude API로 관련성 판별 → 사건별 묶기 → 분야별 요약 → 약사 시사점 코멘트를 작성함
 - 결과는 docs/날짜/ 폴더에 summary.json, briefing.txt, 카드뉴스 PNG, 링크 모음, 웹페이지(index.html)로 저장함
@@ -52,7 +52,8 @@ KEYWORDS = [
     "메틸페니데이트", "약물 오남용",
 ]
 
-NAVER_URL = "https://openapi.naver.com/v1/search/news.json"
+# 네이버 검색 API는 2026년 하반기부터 네이버 클라우드 "NAVER API HUB"에서 발급·제공됨
+NAVER_URL = "https://naverapihub.apigw.ntruss.com/search/v1/news"
 
 
 # ─────────────────────────────────────────
@@ -74,15 +75,15 @@ def press_of(url: str):
 
 def search_news(query: str, cutoff: datetime) -> list:
     headers = {
-        "X-Naver-Client-Id": os.environ["NAVER_CLIENT_ID"],
-        "X-Naver-Client-Secret": os.environ["NAVER_CLIENT_SECRET"],
+        "X-NCP-APIGW-API-KEY-ID": os.environ["NAVER_CLIENT_ID"],   # API HUB의 Client ID
+        "X-NCP-APIGW-API-KEY": os.environ["NAVER_CLIENT_SECRET"],  # API HUB의 Client Secret
     }
     found = []
     for start in range(1, 1001, 100):  # 네이버 API는 최대 1000건까지 조회 가능
         r = requests.get(
             NAVER_URL,
             headers=headers,
-            params={"query": query, "display": 100, "start": start, "sort": "date"},
+            params={"query": query, "display": 100, "start": start, "sort": "date", "format": "json"},
             timeout=10,
         )
         r.raise_for_status()
