@@ -1,0 +1,26 @@
+# 처음 한 번만 실행: 카카오 토큰 발급
+name: kakao-token-setup
+
+on:
+  workflow_dispatch:
+    inputs:
+      code:
+        description: "카카오 로그인 후 이동한 페이지의 주소창 전체를 붙여 넣기"
+        required: true
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - name: 카카오 토큰 발급·저장
+        env:
+          KAKAO_CODE: ${{ inputs.code }}
+          KAKAO_REST_API_KEY: ${{ secrets.KAKAO_REST_API_KEY }}
+          KAKAO_CLIENT_SECRET: ${{ secrets.KAKAO_CLIENT_SECRET }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: python kakao_token_setup.py
