@@ -1,0 +1,116 @@
+{
+  "headline": "20대 마약사범 10대의 10배…예방 이어져야",
+  "categories": [
+    {
+      "name": "청소년",
+      "items": [
+        {
+          "title": "20대 마약사범 10대의 10배",
+          "summary": "지난해 적발된 20대 마약사범이 10대의 10배에 이른다는 점이 조명됐다. 위험을 알리는 데 그치지 말고 대학·정부·민간이 함께 예방에 나서야 한다는 지적이다.",
+          "youth": true,
+          "sources": [
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261031023400011?input=1195m"
+            }
+          ],
+          "_no": 1
+        }
+      ]
+    },
+    {
+      "name": "사건·사고",
+      "items": [
+        {
+          "title": "수원중수청 첫 마약 사건, 대마 재배범 구속",
+          "summary": "수원지방중대범죄수사청 마약합동수사과가 서울 주택가에서 대마를 재배한 20대 A씨를 구속했다. 개청 후 첫 마약 사건이며, 법원은 30일 구속영장을 발부했다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "JTBC",
+              "url": "https://news.jtbc.co.kr/article/NB12325818?influxDiv=NAVER"
+            },
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261031022900061?input=1195m"
+            },
+            {
+              "press": "JTBC",
+              "url": "https://news.jtbc.co.kr/article/NB12325786?influxDiv=NAVER"
+            }
+          ],
+          "_no": 2
+        }
+      ]
+    },
+    {
+      "name": "치료·재활",
+      "items": [
+        {
+          "title": "회복 지원가 활용, 신중해야",
+          "summary": "한국마약퇴치운동본부에 대한 제언을 다룬 연재 기사다. 중독 회복자를 '회복 지원가'로 위촉할 때 회복자라는 자원을 신중히 다뤄야 한다는 의견이 소개됐다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "경향신문",
+              "url": "https://www.khan.co.kr/article/202610312106001"
+            }
+          ],
+          "_no": 3
+        }
+      ]
+    },
+    {
+      "name": "기타",
+      "items": [
+        {
+          "title": "핼러윈 홍대 '마약 사탕' 오인 신고",
+          "summary": "핼러윈 밤 홍대에서 인형 탈을 쓴 남성이 마약 사탕을 건넸다는 신고가 들어왔으나 경찰은 오인 신고로 확인했다. 같은 날 홍대·이태원 일대에는 16만 인파가 몰렸다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "YTN",
+              "url": "https://www.ytn.co.kr/_ln/0103_202611010049418256"
+            },
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261031049800004?input=1195m"
+            },
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261031044652004?input=1195m"
+            }
+          ],
+          "_no": 4
+        },
+        {
+          "title": "핼러윈 전날 유흥가 마약 합동 점검",
+          "summary": "서울경찰청이 30일 심야 강남·서초·용산 유흥가에서 경찰·소방·지자체와 함께 클럽 8곳을 점검했다. 마약류관리법 위반 적발은 없었다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261031022100004?input=1195m"
+            }
+          ],
+          "_no": 5
+        },
+        {
+          "title": "백지영, 남편 마약 사건 심경 고백",
+          "summary": "가수 백지영이 남편 정석원의 과거 마약 투약 사건 때 결혼생활을 지킨 이유를 밝혔다. 정석원은 마약류관리법 위반으로 징역 10개월에 집행유예 2년을 선고받았고, 항소심에서도 같은 형이 나왔다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "동아일보",
+              "url": "https://sports.donga.com/ent/article/all/20261101/134943035/1"
+            }
+          ],
+          "_no": 6
+        }
+      ]
+    }
+  ],
+  "daily_comment": "10대 때의 예방교육이 성인기까지 이어지도록 연계 방안을 고민해 볼 시점입니다. 회복자가 참여하는 프로그램은 회복자의 상태를 살피며 신중히 운영하는 것이 중요합니다.",
+  "excluded_count": 5,
+  "date": "2026.11.01"
+}
