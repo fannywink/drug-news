@@ -126,7 +126,7 @@ def cover(summary):
       <p class="series">{SERIES}{sample}</p>
       <h1 class="headline">{esc(summary.get("headline"))}</h1>
       <ul class="toc">{toc}</ul>
-      <div class="foot"><span>오늘 {total}건의 사안을 정리했습니다</span><span>{d.year}</span></div>"""
+      <div class="foot"><span>{"금·토·일 소식" if summary.get("weekend") else "오늘"} {total}건의 사안을 정리했습니다</span><span>{d.year}</span></div>"""
     return shell(inner, "cover")
 
 

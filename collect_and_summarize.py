@@ -1,7 +1,7 @@
 """
 마약류 뉴스 수집·요약 (1단계)
 
-- 네이버 클라우드 NAVER API HUB의 뉴스 검색 API로 최근 24시간 기사를 수집함
+- 네이버 클라우드 NAVER API HUB의 뉴스 검색 API로 기사를 수집함 (평일 24시간, 월요일은 주말 포함 72시간)
 - 지정한 10개 매체 기사만 남기고 중복을 제거함
 - Claude API로 관련성 판별 → 사건별 묶기 → 단체 활동 소식 제외 → 사건·사고 1~2건 + 청소년·예방·치료재활 정보로 최대 6건 선정 → 요약함
 - 결과는 docs/날짜/ 폴더에 summary.json, briefing.txt, 카드뉴스 PNG, 링크 모음, 웹페이지(index.html)로 저장함
@@ -27,7 +27,12 @@ import requests
 # 설정
 # ─────────────────────────────────────────
 KST = timezone(timedelta(hours=9))
-HOURS_BACK = 24  # 최근 몇 시간 기사를 모을지
+# 발행 일정: 월~금. 월요일은 금요일 아침 이후(주말 포함) 기사를 모아 더 많이 실음
+WEEKDAY_HOURS, MONDAY_HOURS = 24, 72
+WEEKDAY_MAX, MONDAY_MAX = 6, 10
+
+# 이 단어가 제목·요약에 들어간 기사는 처음부터 제외함 (필요하면 추가)
+EXCLUDE_TERMS = ["코스포", "코리아스타트업포럼"]
 MODEL = "claude-sonnet-5-5"  # 사용할 Claude 모델 (docs.claude.com에서 최신 이름 확인)
 OUTPUT_DIR = "docs"  # GitHub Pages로 공개되는 폴더 (날짜별 하위 폴더에 저장)
 
@@ -116,8 +121,8 @@ def search_news(query: str, cutoff: datetime) -> list:
     return found
 
 
-def collect() -> list:
-    cutoff = datetime.now(KST) - timedelta(hours=HOURS_BACK)
+def collect(hours: int) -> list:
+    cutoff = datetime.now(KST) - timedelta(hours=hours)
     by_url, seen_titles = {}, set()
 
     for kw in KEYWORDS:
@@ -129,6 +134,11 @@ def collect() -> list:
             seen_titles.add(title_key)
 
     articles = sorted(by_url.values(), key=lambda x: x["published"], reverse=True)
+    before = len(articles)
+    articles = [a for a in articles
+                if not any(t in a["title"] + a["description"] for t in EXCLUDE_TERMS)]
+    if before != len(articles):
+        print(f"[제외어] {before - len(articles)}건 제외 ({', '.join(EXCLUDE_TERMS)})")
 
     # 매체별 수집 건수 확인 (0건 매체는 RSS 보완 검토)
     counts = Counter(a["press"] for a in articles)
@@ -141,22 +151,23 @@ def collect() -> list:
 # ─────────────────────────────────────────
 # 2. 필터링·요약 (Claude)
 # ─────────────────────────────────────────
-MAX_ITEMS = 6  # 카드뉴스에 실을 최대 기사(사안) 수
-
 SYSTEM_PROMPT = """너는 경기도약사회 마약퇴치사업본부의 일일 마약류 뉴스 브리핑을 작성한다.
 독자는 마약류 중독 예방교육과 치료·재활 지원 활동을 하는 사람들이다.
 이들의 활동에 도움이 되는 뉴스를 골라 정확하고 간결하게 전달하는 것이 목적이다.
 반드시 JSON만 출력하고, 설명이나 코드블록 표시(```)는 붙이지 않는다."""
 
-USER_PROMPT = """아래는 최근 24시간 동안 수집한 기사 목록(제목·요약문)이다.
+USER_PROMPT = """아래는 {period} 수집한 기사 목록(제목·요약문)이다. 각 기사에는 번호(id)가 있다.
 
 [작성 규칙]
 1. 실제 마약류와 관련된 기사만 대상으로 한다. 불법 마약, 의료용 마약류·향정신성의약품 오남용, 관련 정책·단속·예방·치료·재활이 해당한다.
    '마약김밥', '마약 같은 매력'처럼 비유적으로 쓰인 기사는 제외한다.
-2. 같은 사건·사안을 다룬 여러 기사는 하나로 묶고, 출처는 모두 sources에 넣는다.
+2. 같은 사건·사안을 다룬 여러 기사는 하나로 묶고, 그 기사들의 id를 모두 sources에 숫자로 넣는다.
+   sources에는 실제로 그 사안을 다룬 기사의 id만 넣는다.
 3. 다음 기사는 교육·재활 현장에 쓸 정보가 없으므로 제외한다.
    - 기관·단체·지자체·기업이 캠페인, 행사, 예방교육, 기부, 업무협약(MOU), 발대식, 수상 등을 했다는 활동 소식
    - 위와 비슷한 홍보성·실적 보도 (누가 무엇을 했다는 내용뿐이고 새로운 사실·수치·변화가 없는 기사)
+   - 코리아스타트업포럼(코스포) 등 비대면진료·의약품 배송 플랫폼 업계의 주장이나 입장을 전하는 기사
+     (같은 사안을 묶을 때도 이런 기사는 sources에 넣지 않는다)
 4. 남은 사안 중 최대 {max_items}건을 아래 기준으로 고른다.
    - 사건·사고를 반드시 1~2건 넣는다. 마약류 투약·유통·밀반입 적발, 과다복용(OD) 사고, 마약류 관련 범죄·사고처럼
      예방교육에서 실제 사례로 쓸 수 있는 것이다. 청소년이 관련된 사건을 먼저 고르고, 화제성만 크고 교육적 의미가 없는 것은 뒤로 미룬다.
@@ -187,7 +198,7 @@ USER_PROMPT = """아래는 최근 24시간 동안 수집한 기사 목록(제목
           "title": "사안 제목(직접 작성, 25자 이내)",
           "summary": "2문장 요약",
           "youth": false,
-          "sources": [{{"press": "매체명", "url": "기사 URL"}}]
+          "sources": [기사 id 숫자, ...]
         }}
       ]
     }}
@@ -201,14 +212,14 @@ USER_PROMPT = """아래는 최근 24시간 동안 수집한 기사 목록(제목
 """
 
 
-def summarize(articles: list) -> dict:
+def summarize(articles: list, max_items: int, period: str) -> dict:
     if not articles:
         return {"headline": "오늘은 대상 매체의 마약류 관련 기사가 없습니다.",
                 "categories": [], "daily_comment": "", "excluded_count": 0}
 
+    # 주소는 AI에게 맡기지 않음: AI는 기사 번호만 고르고, 주소는 아래에서 원래 기사에서 그대로 가져옴
     payload = [
-        {"id": i, "press": a["press"], "title": a["title"],
-         "description": a["description"], "url": a["url"]}
+        {"id": i, "press": a["press"], "title": a["title"], "description": a["description"]}
         for i, a in enumerate(articles)
     ]
     client = anthropic.Anthropic()
@@ -217,15 +228,34 @@ def summarize(articles: list) -> dict:
         max_tokens=8000,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": USER_PROMPT.format(
-            max_items=MAX_ITEMS, articles=json.dumps(payload, ensure_ascii=False, indent=1))}],
+            max_items=max_items, period=period,
+            articles=json.dumps(payload, ensure_ascii=False, indent=1))}],
     )
     text = "".join(b.text for b in msg.content if b.type == "text")
     text = re.sub(r"^```(?:json)?|```$", "", text.strip()).strip()
     result = json.loads(text)
 
-    # 안전장치: AI가 6건을 넘기면 뒤쪽 분류부터 덜어내되, 사건·사고는 최소 1건 남김
+    # 기사 번호 → 실제 매체명·주소로 바꿈 (잘못된 번호는 버리고, 출처가 하나도 없으면 그 사안을 뺌)
+    for cat in result.get("categories", []):
+        kept = []
+        for item in cat.get("items", []):
+            srcs, seen = [], set()
+            for sid in item.get("sources", []):
+                try:
+                    a = articles[int(sid)]
+                except (ValueError, TypeError, IndexError):
+                    continue
+                if a["url"] not in seen:
+                    seen.add(a["url"])
+                    srcs.append({"press": a["press"], "url": a["url"]})
+            if srcs:
+                item["sources"] = srcs
+                kept.append(item)
+        cat["items"] = kept
+
+    # 안전장치: 최대 건수를 넘기면 뒤쪽 분류부터 덜어내되, 사건·사고는 최소 1건 남김
     cats = result.get("categories", [])
-    while sum(len(c["items"]) for c in cats) > MAX_ITEMS:
+    while sum(len(c["items"]) for c in cats) > max_items:
         for cat in reversed(cats):
             if cat["items"] and not (cat["name"] == "사건·사고" and len(cat["items"]) == 1):
                 cat["items"].pop()
@@ -280,9 +310,16 @@ def main():
     day_dir = os.path.join(OUTPUT_DIR, today.strftime("%Y%m%d"))
     os.makedirs(day_dir, exist_ok=True)
 
-    articles = collect()
-    summary = summarize(articles)
+    if today.weekday() == 0:  # 월요일: 주말 포함
+        hours, max_items, period = MONDAY_HOURS, MONDAY_MAX, "지난 금요일 아침부터 오늘 아침까지(주말 포함, 약 72시간)"
+    else:
+        hours, max_items, period = WEEKDAY_HOURS, WEEKDAY_MAX, "최근 24시간 동안"
+    print(f"[기간] 최근 {hours}시간, 최대 {max_items}건")
+
+    articles = collect(hours)
+    summary = summarize(articles, max_items, period)
     summary["date"] = date_str
+    summary["weekend"] = today.weekday() == 0
 
     text = to_text(summary, date_str)
     with open(os.path.join(day_dir, "briefing.txt"), "w", encoding="utf-8") as f:
