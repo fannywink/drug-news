@@ -1,0 +1,112 @@
+{
+  "headline": "감기약 63만 정이 필로폰 제조에 쓰였다",
+  "categories": [
+    {
+      "name": "사건·사고",
+      "items": [
+        {
+          "title": "감기약으로 필로폰 제조, 유통 허점",
+          "summary": "슈도에페드린 성분 감기약 약 63만 정이 도매 유통망을 거쳐 특정 약국으로 흘러들어 필로폰 제조에 쓰인 것으로 조사됐다. 약업계에서는 의약품 유통관리의 허점을 두고 공방이 이어지고 있다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "YTN",
+              "url": "https://www.ytn.co.kr/_ln/0134_202611041234464195"
+            },
+            {
+              "press": "데일리팜",
+              "url": "https://www.dailypharm.com/user/news/344173?REFERER=NP"
+            },
+            {
+              "press": "약사공론",
+              "url": "https://www.kpanews.co.kr/news/articleView.html?idxno=548080"
+            },
+            {
+              "press": "데일리팜",
+              "url": "https://new.dailypharm.com/user/news/344175?REFERER=NP"
+            },
+            {
+              "press": "데일리팜",
+              "url": "https://new.dailypharm.com/user/news/344158?REFERER=NP"
+            }
+          ],
+          "_no": 1
+        },
+        {
+          "title": "텔레그램 '라부부' 운영자 구형",
+          "summary": "텔레그램 마약 판매 채널 '라부부'를 운영한 30대에게 공소청이 징역 10년을 구형했다. 필리핀 총책의 지휘를 받아 국내에서 340만원 상당의 필로폰 등을 판매한 혐의다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261104073500061?input=1195m"
+            }
+          ],
+          "_no": 2
+        }
+      ]
+    },
+    {
+      "name": "치료·재활",
+      "items": [
+        {
+          "title": "치료보호기관 10곳 중 4곳 환자 0",
+          "summary": "전국 마약류 중독자 전담 치료보호기관 10곳 중 4곳가량이 환자를 받지 않는 것으로 나타났다. 복지부는 내년 재지정을 추진하고 치료 수가 신설과 권역 치료보호기관 확충에 나선다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261104089300004?input=1195m"
+            }
+          ],
+          "_no": 3
+        }
+      ]
+    },
+    {
+      "name": "정책·제도",
+      "items": [
+        {
+          "title": "신종마약 대응체계 개편 추진",
+          "summary": "정부가 신종마약 확산에 대응해 기관 간 정보공유 체계를 개편하고 범부처 협력을 강화하는 방안을 추진한다. 기존 마약정보데이터베이스를 각 기관이 확보한 신종 물질 정보를 공유하는 시스템으로 바꾼다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "약사공론",
+              "url": "https://www.kpanews.co.kr/news/articleView.html?idxno=548085"
+            }
+          ],
+          "_no": 4
+        },
+        {
+          "title": "트라마돌 향정신성의약품 전환 검토",
+          "summary": "식약처가 비마약성 진통제로 널리 쓰여온 트라마돌 성분을 향정신성의약품으로 지정할지 원점에서 재평가한다. 전환되면 약국의 마약류통합관리시스템 보고와 전용 보관고 설치 등 현장 부담이 생길 수 있다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "데일리팜",
+              "url": "https://www.dailypharm.com/user/news/344171?REFERER=NP"
+            }
+          ],
+          "_no": 5
+        },
+        {
+          "title": "GLP-1 비만약 오·남용 우려약 지정 논란",
+          "summary": "GLP-1 비만약의 '오·남용 우려약' 지정이 추가 의견수렴 단계에서 진통을 겪고 있다. 지정 시 더 강한 향정신성 비만약으로 쏠리는 풍선효과가 생길 수 있다는 지적이 나왔다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "데일리팜",
+              "url": "https://www.dailypharm.com/user/news/344193?REFERER=NP"
+            }
+          ],
+          "_no": 6
+        }
+      ]
+    }
+  ],
+  "daily_comment": "일상적인 감기약도 유통 관리가 허술하면 마약 제조에 악용될 수 있다는 점을 교육에서 차분히 다룰 만합니다. 치료보호기관의 이용 실태가 지적된 만큼, 현장에서는 지역 치료 연계 정보를 점검해 두면 좋겠습니다.",
+  "excluded_count": 33,
+  "date": "2026.11.05",
+  "weekend": false
+}
