@@ -3,7 +3,7 @@ name: daily-drug-news
 
 on:
   schedule:
-    - cron: "37 22 * * 0-4"   # UTC 23:15 = 한국 08:15 (GitHub 지연을 감안해 15분 일찍)
+    - cron: "37 22 * * 0-4"   # UTC 일~목 22:37 = 한국 월~금 07:37 (토·일 발행 없음)
   workflow_dispatch:         # Actions 화면에서 수동 실행 버튼
 
 permissions:
@@ -42,13 +42,21 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python collect_and_summarize.py
 
+      # 지난 브리핑 보관용 저장. GitHub 쪽 일시 오류로 실패해도 3번까지 다시 시도하고,
+      # 끝내 실패해도 오늘 카드뉴스 게시·카톡 전송은 그대로 진행함
       - name: 결과 저장(커밋)
+        continue-on-error: true
         run: |
           git config user.name "news-bot"
           git config user.email "news-bot@users.noreply.github.com"
           git add docs
           git commit -m "브리핑 $(date +%Y-%m-%d)" || echo "변경 없음"
-          git push
+          for i in 1 2 3; do
+            if git pull --rebase -q && git push; then exit 0; fi
+            echo "저장 실패, 20초 뒤 다시 시도 ($i/3)"
+            sleep 20
+          done
+          exit 1
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
