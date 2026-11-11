@@ -1,0 +1,124 @@
+{
+  "headline": "수의사 케타민 92회 셀프 투약 적발",
+  "categories": [
+    {
+      "name": "사건·사고",
+      "items": [
+        {
+          "title": "수의사, 케타민 빼돌려 92회 투약",
+          "summary": "수도권 동물병원 수의사가 동물용 마취제 케타민을 빼돌려 7~9월 92차례 스스로 투약하다 적발됐다. 식약처 특별감시단이 수사했고 마약류 취급 보고도 고의로 누락한 것으로 파악됐다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "경향신문",
+              "url": "https://www.khan.co.kr/article/202611111422001"
+            },
+            {
+              "press": "중앙일보",
+              "url": "https://www.joongang.co.kr/article/25477584"
+            },
+            {
+              "press": "YTN",
+              "url": "https://www.ytn.co.kr/_ln/0103_202611110944337204"
+            },
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261111030100017?input=1195m"
+            }
+          ],
+          "_no": 1
+        },
+        {
+          "title": "음료 캔에 필로폰 17kg 은닉 밀수",
+          "summary": "튀르키예 국적 40대가 음료 캔에 56만 명분, 약 17kg의 필로폰을 숨겨 들여오려다 인천공항세관에 구속됐다. 관세당국은 국제통제배달로 국내 밀수 조직을 추적했다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "한겨레",
+              "url": "https://www.hani.co.kr/arti/area/capital/1286779.html"
+            },
+            {
+              "press": "경향신문",
+              "url": "https://www.khan.co.kr/article/202611111109011"
+            },
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261111063000065?input=1195m"
+            }
+          ],
+          "_no": 2
+        }
+      ]
+    },
+    {
+      "name": "치료·재활",
+      "items": [
+        {
+          "title": "서울시 마약관리센터 개소 1주년",
+          "summary": "서울시 마약관리센터의 전문 입원치료가 누적 149건으로 집계됐다. 상담·치료·재활을 제공하고 퇴원 후 외래진료까지 이어지는 체계를 갖췄다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "YTN",
+              "url": "https://www.ytn.co.kr/_ln/0115_202611111532229815"
+            },
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261111038100004?input=1195m"
+            },
+            {
+              "press": "경향신문",
+              "url": "https://www.khan.co.kr/article/202611111030001"
+            }
+          ],
+          "_no": 3
+        }
+      ]
+    },
+    {
+      "name": "정책·제도",
+      "items": [
+        {
+          "title": "마약류 의존성 평가 국제교육 시작",
+          "summary": "한국이 주도해 만든 마약류 의존성 평가 국제 가이드라인을 알리는 국제 교육 프로그램이 처음 운영된다. 표준화된 기준이 부족했던 분야의 평가에 쓰이게 된다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "약사공론",
+              "url": "https://www.kpanews.co.kr/news/articleView.html?idxno=548665"
+            }
+          ],
+          "_no": 4
+        },
+        {
+          "title": "슈도에페드린 판매관리 재강조",
+          "summary": "식약처가 슈도에페드린·에페드린 함유 일반의약품이 불법 마약류 제조에 악용되지 않도록 약국 판매관리를 재강조했다. 판매는 최대 4일분으로 제한된다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "약사공론",
+              "url": "https://www.kpanews.co.kr/news/articleView.html?idxno=548643"
+            }
+          ],
+          "_no": 5
+        },
+        {
+          "title": "마약류 수거사업 예산에 약국 기대",
+          "summary": "마약류 수거사업 예산이 거론되며 약국의 참여 기대가 커지고 있다. 국회에서는 의료용 마약류 처방 규모와 가정 내 의약품 관리 실태를 언급하며 참여 확대 방안을 주문했다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "약사공론",
+              "url": "https://www.kpanews.co.kr/news/articleView.html?idxno=548638"
+            }
+          ],
+          "_no": 6
+        }
+      ]
+    }
+  ],
+  "daily_comment": "오늘 사례는 의료용 마약류가 관리 소홀과 보고 누락을 틈타 오남용될 수 있음을 보여 줍니다. 교육 현장에서는 취급 관리의 중요성을, 재활 현장에서는 치료기관 연계와 퇴원 후 지속 지원의 필요성을 차분히 안내해 주세요.",
+  "excluded_count": 66,
+  "date": "2026.11.12",
+  "weekend": false
+}
