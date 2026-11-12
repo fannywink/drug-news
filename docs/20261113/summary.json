@@ -1,0 +1,120 @@
+{
+  "headline": "국내 첫 합성마약 '야바' 제조 총책 검거",
+  "categories": [
+    {
+      "name": "사건·사고",
+      "items": [
+        {
+          "title": "국내 첫 '야바' 제조·유통 적발",
+          "summary": "태국인 총책 등 16명이 국내 주택가에서 합성마약 야바를 만들어 유통하다 해경에 검거됐고 8명이 구속됐다. 국내 제조 총책 검거는 처음이며 시가 14억 원 상당이다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "YTN",
+              "url": "https://www.ytn.co.kr/_ln/0115_202611122056139516"
+            },
+            {
+              "press": "YTN",
+              "url": "https://www.ytn.co.kr/_ln/0115_202611121714533230"
+            },
+            {
+              "press": "JTBC",
+              "url": "https://news.jtbc.co.kr/article/NB12327773?influxDiv=NAVER"
+            },
+            {
+              "press": "한겨레",
+              "url": "https://www.hani.co.kr/arti/area/gangwon/1286966.html"
+            },
+            {
+              "press": "경향신문",
+              "url": "https://www.khan.co.kr/article/202611121147001"
+            },
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261112043700062?input=1195m"
+            }
+          ],
+          "_no": 1
+        },
+        {
+          "title": "타인 명의로 9년간 마약류 처방",
+          "summary": "40대 여성이 9년 동안 타인 명의로 마약류로 분류되는 의약품을 처방받아 집행유예를 선고받았다. 본인은 범행을 인정했다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "동아일보",
+              "url": "https://www.donga.com/news/Society/article/all/20261113/135018132/1"
+            }
+          ],
+          "_no": 2
+        }
+      ]
+    },
+    {
+      "name": "정책·제도",
+      "items": [
+        {
+          "title": "감기약 마약 제조 악용과 약국 규제",
+          "summary": "슈도에페드린 함유 감기약이 불법 마약류 제조에 악용된 사건을 계기로 대용량 포장의 적절성이 도마에 올랐다. 약국 규제는 강화되는데 편의점 약 확대가 논의된다는 지적도 나온다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "데일리팜",
+              "url": "https://www.dailypharm.com/user/news/344486?REFERER=NP"
+            },
+            {
+              "press": "약사공론",
+              "url": "https://www.kpanews.co.kr/news/articleView.html?idxno=548842"
+            }
+          ],
+          "_no": 3
+        },
+        {
+          "title": "마약퇴치운동본부 지원 예산 증액",
+          "summary": "마약류 오남용 예방과 중독자 사회복귀를 맡은 마약퇴치운동본부의 운영 지원 예산이 13억 원 넘게 늘었다. 관련 활동에 힘이 실릴 전망이다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "약사공론",
+              "url": "https://www.kpanews.co.kr/news/articleView.html?idxno=548794"
+            }
+          ],
+          "_no": 4
+        },
+        {
+          "title": "비대면진료 플랫폼 규제 강화",
+          "summary": "일반 비대면진료에서는 마약·향정신성의약품과 오남용 우려 의약품, 비만치료제 등의 처방이 제한된다. 플랫폼의 약국 노출 규제와 약 배송 기준도 더 촘촘해진다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "약사공론",
+              "url": "https://www.kpanews.co.kr/news/articleView.html?idxno=548716"
+            }
+          ],
+          "_no": 5
+        }
+      ]
+    },
+    {
+      "name": "기타",
+      "items": [
+        {
+          "title": "소변 5분 마약 감지 AI 기술",
+          "summary": "연구팀이 나노 기판과 AI를 결합해 소변으로 마약 투약 여부를 5분 만에 판별하는 진단 플랫폼을 개발했다. 마약 성분의 미세한 빛 신호를 수백만 배 증폭하는 방식이다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261112078900063?input=1195m"
+            }
+          ],
+          "_no": 6
+        }
+      ]
+    }
+  ],
+  "daily_comment": "마약류가 불법 제조 외에 일반의약품과 타인 명의 처방 등 일상 속 경로로도 흘러드는 사례가 확인됐습니다. 교육 현장에서는 의약품 사용과 보관 수칙을 차분히 안내하는 것이 도움이 됩니다.",
+  "excluded_count": 37,
+  "date": "2026.11.13",
+  "weekend": false
+}
