@@ -72,10 +72,12 @@ def wait_until_live(url: str, timeout: int = 600):
 def main():
     today = datetime.now(KST)
     ymd = today.strftime("%Y%m%d")
-    with open(os.path.join("docs", ymd, "summary.json"), encoding="utf-8") as f:
+    sub = os.environ.get("NEWS_SUBDIR", "").strip("/")  # 의료용 마약류 브리핑은 "rx"
+    with open(os.path.join("docs", sub, ymd, "summary.json"), encoding="utf-8") as f:
         summary = json.load(f)
 
-    page_url = f"{os.environ['SITE_URL'].rstrip('/')}/{ymd}/"
+    base = os.environ["SITE_URL"].rstrip("/") + (f"/{sub}" if sub else "")
+    page_url = f"{base}/{ymd}/"
     image_url = page_url + "card_01.png"
     if not wait_until_live(image_url):
         print("[경고] 페이지가 아직 열리지 않음. 그래도 전송함 (잠시 뒤 열림)")
@@ -86,7 +88,7 @@ def main():
         "object_type": "feed",
         "content": {
             "title": summary.get("headline", "마약류 뉴스 브리핑"),
-            "description": f"{today.month}월 {today.day}일 마약류 주요 뉴스 {count}건과 원문 링크",
+            "description": f"{today.month}월 {today.day}일 {summary.get('series', '마약류 주요 뉴스')} {count}건과 원문 링크",
             "image_url": image_url,
             "image_width": 1080,
             "image_height": 1350,
