@@ -1,0 +1,137 @@
+{
+  "headline": "청소년 메틸페니데이트 처방 5년새 2.8배",
+  "categories": [
+    {
+      "name": "청소년",
+      "items": [
+        {
+          "title": "청소년 메틸페니데이트 처방 2.8배",
+          "summary": "건보심사평가원 분석에서 청소년의 메틸페니데이트 처방이 최근 5년간 2.8배 늘었다. 지역은 서울이 가장 많았고 월별로는 8월에 정점을 보였다.",
+          "youth": true,
+          "sources": [
+            {
+              "press": "데일리팜",
+              "url": "https://www.dailypharm.com/user/news/344750?REFERER=NP"
+            },
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261118116800530?input=1195m"
+            }
+          ],
+          "_no": 1
+        },
+        {
+          "title": "여성 청소년 '나비약' 불법 거래",
+          "summary": "여성 청소년 사이에서 '나비약'으로 불리는 마약류 식욕억제제가 불법 거래되고 있다고 소개했다. 왜곡된 체형 인식이 우울·불안으로 이어질 수 있다는 지적도 담겼다.",
+          "youth": true,
+          "sources": [
+            {
+              "press": "한겨레",
+              "url": "https://www.hani.co.kr/arti/society/health/1288051.html"
+            }
+          ],
+          "_no": 2
+        }
+      ]
+    },
+    {
+      "name": "사건·사고",
+      "items": [
+        {
+          "title": "사탕 봉지에 숨긴 필로폰 밀수",
+          "summary": "50대 남성이 캐나다에서 국제등기로 사탕 봉지에 넣은 필로폰 376g(1만2500명 투약분)을 세 차례 들여온 혐의로 구속 송치됐다. 텔레그램에서 알게 된 공급책과 공모한 것으로 조사됐다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "YTN",
+              "url": "https://www.ytn.co.kr/_ln/0103_202611181502215451"
+            },
+            {
+              "press": "중앙일보",
+              "url": "https://www.joongang.co.kr/article/25479793"
+            },
+            {
+              "press": "동아일보",
+              "url": "https://www.donga.com/news/Society/article/all/20261118/135046952/2"
+            },
+            {
+              "press": "JTBC",
+              "url": "https://news.jtbc.co.kr/article/NB12328657?influxDiv=NAVER"
+            },
+            {
+              "press": "경향신문",
+              "url": "https://www.khan.co.kr/article/202611181348001"
+            },
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261118106700061?input=1195m"
+            }
+          ],
+          "_no": 3
+        },
+        {
+          "title": "CCTV 정보 악용한 공무원 드라퍼",
+          "summary": "업무 중 알게 된 CCTV 위치 정보를 이용해 마약 운반책 역할을 한 경기도 내 시청 공무원이 2심에서도 징역 2년을 받았다. 직무상 얻은 정보를 마약 유통에 악용한 사례다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "YTN",
+              "url": "https://www.ytn.co.kr/_ln/0103_202611181734064996"
+            },
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261118119000061?input=1195m"
+            }
+          ],
+          "_no": 4
+        }
+      ]
+    },
+    {
+      "name": "예방·교육",
+      "items": [
+        {
+          "title": "해외직구 건강식품 68% 유해성분",
+          "summary": "관세청이 7~9월 해외직구 건강식품을 검사한 결과 10개 중 약 7개에서 마약류·의약품 등 유해성분이 나왔다. 마약류 검출 제품 9개 중 7개는 헴프나 칸나를 표시하고 있었다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "JTBC",
+              "url": "https://news.jtbc.co.kr/article/NB12328660?influxDiv=NAVER"
+            },
+            {
+              "press": "한겨레",
+              "url": "https://www.hani.co.kr/arti/economy/economy_general/1287912.html"
+            },
+            {
+              "press": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261118044100002?input=1195m"
+            }
+          ],
+          "_no": 5
+        }
+      ]
+    },
+    {
+      "name": "정책·제도",
+      "items": [
+        {
+          "title": "의약품 적정사용 주의정보 확대",
+          "summary": "의약품 적정사용 주의정보에 마약류 아편유사제 관련 성분이 추가됐다. 알프라졸람·로라제팜 등 향정신성 성분도 대상에 포함됐다.",
+          "youth": false,
+          "sources": [
+            {
+              "press": "약사공론",
+              "url": "https://www.kpanews.co.kr/news/articleView.html?idxno=549326"
+            }
+          ],
+          "_no": 6
+        }
+      ]
+    }
+  ],
+  "daily_comment": "청소년의 의료용 마약류 사용과 식욕억제제 오남용에 대해 올바른 복용 교육이 필요합니다. 직구 건강식품에도 마약류 성분이 들어 있을 수 있음을 차분히 안내해 주세요.",
+  "excluded_count": 40,
+  "date": "2026.11.19",
+  "weekend": false
+}
